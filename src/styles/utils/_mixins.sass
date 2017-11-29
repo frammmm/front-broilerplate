@@ -1,0 +1,16 @@
+=r($width) 
+  @media only screen and (max-width: $width + 'px')
+    @content
+
+
+=f-ttf($alias, $font-name)
+  @font-face
+    font-family: $alias
+    src:  url("/fonts/" + $font-name + ".ttf")
+
+
+=f-woff($alias, $font-name)
+  @font-face 
+    font-family: $alias
+    src:  url("/fonts/" + $font-name + ".woff2") format('woff2')
+          url("/fonts/" + $font-name + ".woff") format('woff')
