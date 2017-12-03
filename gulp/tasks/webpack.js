@@ -1,13 +1,12 @@
-var gulp          = require('gulp');
-var webpack       = require('webpack');
-var gutil         = require('gulp-util');
-var notify        = require('gulp-notify');
-var server        = require('./dev-server');
-var config        = require('../config');
-var webpackConfig = require('../../webpack.config').createConfig;
+const gulp = require('gulp'),
+    webpack = require('webpack'),
+    gutil = require('gulp-util'),
+    notify = require('gulp-notify'),
+    server = require('./dev-server'),
+    webpackConfig = require('../../webpack.config').createConfig;
 
 function handler(err, stats, cb) {
-    var errors = stats.compilation.errors;
+    const errors = stats.compilation.errors;
 
     if (err) throw new gutil.PluginError('webpack', err);
 
@@ -28,14 +27,14 @@ function handler(err, stats, cb) {
     if (typeof cb === 'function') cb();
 }
 
-gulp.task('webpack', function(cb) {
-    webpack(webpackConfig(config.env)).run(function(err, stats) {
+gulp.task('webpack', function (cb) {
+    webpack(webpackConfig()).run(function (err, stats) {
         handler(err, stats, cb);
     });
 });
 
-gulp.task('webpack:watch', function() {
-    webpack(webpackConfig(config.env)).watch({
+gulp.task('webpack:watch', function () {
+    webpack(webpackConfig()).watch({
         aggregateTimeout: 100,
         poll: false
     }, handler);

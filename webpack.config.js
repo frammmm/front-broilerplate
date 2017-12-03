@@ -1,7 +1,7 @@
 const webpack = require('webpack'),
-      path = require('path'),
-      config = require('./gulp/config'),
-      BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+    path = require('path'),
+    config = require('./gulp/config'),
+    BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 const NODE_ENV = process.env.NODE_ENV;
 
@@ -14,7 +14,7 @@ function createConfig() {
             app: './app.js'
         },
         output: {
-            path: path.join(__dirname, config.dest.js),
+            path: path.join(__dirname, config.dist.js),
             filename: '[name].js',
             publicPath: 'js/'
         },
@@ -41,7 +41,7 @@ function createConfig() {
         }
     };
 
-    if ( !isProduction ) {
+    if (!isProduction) {
         webpackConfig.plugins.push(
             new BundleAnalyzerPlugin({
                 analyzerMode: 'static',
