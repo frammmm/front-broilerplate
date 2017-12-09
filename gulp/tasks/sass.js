@@ -4,7 +4,7 @@ const config = require('../config'),
     sourcemaps = require('gulp-sourcemaps'),
     postcss = require('gulp-postcss'),
     purify = require('gulp-purifycss'),
-    server = require('browser-sync');
+    bs = require('./dev-server');
 
 const sortMediaQueries = (a, b) => {
     const isMax = (mq) => /max-width/.test(mq);
@@ -42,7 +42,7 @@ gulp.task('sass', () =>
         .pipe(gulp.dest(config.dist.css))
 );
 
-gulp.task('sass:dev', () =>
+gulp.task('sass:dev', () => {
     gulp
         .src(config.src.styles + '/**/*.{sass,scss}')
         .pipe(sourcemaps.init())
@@ -51,13 +51,15 @@ gulp.task('sass:dev', () =>
         }))
         .pipe(sourcemaps.write('./'))
         .pipe(gulp.dest(config.dist.css))
-        .pipe(server.reload({
+        .pipe(bs.reload({
             stream: true
-        }))
-);
+        }));
+});
 
 gulp.task('sass:watch', () => {
-    gulp.watch(config.src.styles + '/**/*.{sass, scss}', ['sass']);
+    bs.watch(config.src.styles + '/**/*.{sass, scss}', { ignoreInitial: true }, () => {
+        gulp.start('sass:dev')
+    });
 });
 
 

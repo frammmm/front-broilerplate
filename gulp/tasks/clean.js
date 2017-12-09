@@ -1,8 +1,7 @@
 const gulp = require('gulp'),
-    clean = require('gulp-clean'),
+    del = require('del'),
     config = require('../config');
 
 gulp.task('clean', () => {
-    return gulp.src(config.dist.root + '/**/*.*')
-        .pipe(clean());
+    return del(config.dist.root + '/**/*.*');
 });

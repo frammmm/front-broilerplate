@@ -1,15 +1,17 @@
 const gulp = require('gulp'),
-    server = require('browser-sync'),
+    bs = require('browser-sync').create(),
     config = require('../config');
 
 gulp.task('dev-server', () => {
-    server.init({
+
+    bs.init({
         server: {
             baseDir: config.dist.root
         },
         notify: false,
         open: false
-    })
+    });
+
 });
 
-module.exports = server;
+module.exports = bs;
