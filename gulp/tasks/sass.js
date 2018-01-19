@@ -48,7 +48,7 @@ gulp.task('sass:dev', () => {
         .pipe(sourcemaps.init())
         .pipe(sass({
             outputStyle: 'expanded',
-        }))
+        }).on('error', sass.logError))
         .pipe(sourcemaps.write('./'))
         .pipe(gulp.dest(config.dist.css))
         .pipe(bs.reload({
