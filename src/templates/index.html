@@ -1,0 +1,719 @@
+{% extends "partials/_frame.html" %} {% block content %}
+
+<!-- start header -->
+<div class="header">
+  <!-- start container -->
+  <div class="container">
+    <!-- start header__top -->
+    <div class="header__top">
+      <div class="header__phone">
+        <a href="tel:02012345678">+020 12345678</a>
+      </div>
+      <div class="header__email">
+        <a href="mailto:hello@homeeurope.com">hello@homeeurope.com</a>
+      </div>
+      <div class="city header__city">
+        <div class="city__name">London</div>
+        <div class="city__weather_icon">{{mixins.icon('weather-cloud')}}</div>
+        <div class="city__temperature">18°</div>
+      </div>
+      <div class="language header__language">
+        <div class="language__flag" style="background-image: url(img/language_flag.png)"></div>EN</div>
+    </div>
+    <!-- end header__top -->
+
+    <!-- start header__bottom -->
+    <div class="header__bottom">
+      <a href="#" class="header__logo">
+        <img src="img/logo.png" alt="Logo">
+      </a>
+
+      <nav class="header__nav nav">
+        <a href="#">HOME</a>
+        <a href="#">ABOUT US</a>
+        <a href="#">OUR APARTMENTS</a>
+        <a href="#">REVIEWS</a>
+        <a href="#">BLOG</a>
+        <a href="#">CONTACT US</a>
+      </nav>
+
+      <button class="button button-outline button-strong">SIGN UP</button>
+    </div>
+    <!-- end header__bottom -->
+  </div>
+  <!-- end container -->
+</div>
+<!-- end header -->
+
+<!-- start slider -->
+<div class="hero-slider js-slider">
+  <div class="hero-slider__prev">{{mixins.icon('arrow')}}</div>
+  <div class="hero-slider__next">{{mixins.icon('arrow')}}</div>
+  <div class="hero-slider__slides">
+    <div class="slide" style="background: url(img/header.jpg) 50% 45%">
+      <div class="slide__content">
+        <span class="p1">Save 10% on</span>
+        <span class="p2">EUROPE &amp; BRITAIN</span>
+        <button class="button button-light">LEARN MORE</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- end slider -->
+
+<!-- start search_form -->
+<div class="search_form">
+  <form action="#">
+    <div class="search_form__inner">
+      <div class="field">
+        <input type="text" name="location" class="field__control field__control-wide" value="Near South London">
+        <label for="location" class="field__title">City, country, or aparterment</label>
+      </div>
+      <div class="field">
+        <input type="text" name="people" class="field__control" value="2 people">
+        <label for="people" class="field__title">Guest</label>
+      </div>
+      <div class="field">
+        <input type="text" name="rooms" class="field__control" value="1 room">
+        <label for="rooms" class="field__title">Room</label>
+      </div>
+      <div class="field">
+        <input type="text" name="date" class="field__control" value="Wed, 10 Jan 2018">
+        <label for="date" class="field__title">Check- in</label>
+      </div>
+      <div class="field">
+        <input type="text" name="duration" class="field__control" value="2 nights">
+        <label for="duration" class="field__title">Duration</label>
+      </div>
+      <div class="field">
+        <input type="text" name="duration" class="field__control field__control-result" value="Fri, 12 Jan 2018">
+        <label for="duration" class="field__title">Check- out</label>
+      </div>
+      <div class="field">
+        <input type="button" class="button button-filled" value="SEARCH">
+      </div>
+    </div>
+  </form>
+</div>
+<!-- end search_form -->
+
+<!-- start experience -->
+<div class="experience">
+  <!-- start container -->
+  <div class="container">
+    <div class="title">
+      <span class="title__shadow">Explore, Stay, Or Work</span>
+      <h3 class="title__front">EXPERIENCE THE FINEST CITIES</h3>
+    </div>
+    <!-- start slider -->
+    <div class="slider">
+      <div class="slider__prev">
+        <button class="button-circle">
+          <i class="fa fa-long-arrow-left" aria-hidden="true"></i>
+        </button>
+      </div>
+      <div class="slider__next">
+        <button class="button-circle">
+          <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+        </button>
+      </div>
+      <div class="slider__slides">
+        <div class="slide">
+          <div class="slide__content">
+            <img class="city__image" src="http://via.placeholder.com/320x420" alt="">
+            <span class="city__name">LONDON</span>
+          </div>
+        </div>
+        <div class="slide">
+          <div class="slide__content">
+            <img class="city__image" src="http://via.placeholder.com/320x420" alt="">
+            <span class="city__name">PARIS</span>
+          </div>
+        </div>
+        <div class="slide">
+          <div class="slide__content">
+            <img class="city__image" src="http://via.placeholder.com/320x420" alt="">
+            <span class="city__name">ITALY</span>
+          </div>
+        </div>
+        <div class="slide">
+          <div class="slide__content">
+            <img class="city__image" src="http://via.placeholder.com/320x420" alt="">
+            <span class="city__name">COPENHAGEN</span>
+          </div>
+        </div>
+        <div class="slide">
+          <div class="slide__content">
+            <img class="city__image" src="http://via.placeholder.com/320x420" alt="">
+            <div class="city__status">COMING SOON</div>
+            <span class="city__name">BERLIN</span>
+          </div>
+        </div>
+        <div class="slide">
+          <div class="slide__content">
+            <img class="city__image" src="http://via.placeholder.com/320x420" alt="">
+            <div class="city__status"></div>
+            <span class="city__name">MOSCOW</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- end slider -->
+  </div>
+  <!-- end container -->
+</div>
+<!-- end experience -->
+
+<!-- start apartments -->
+<div class="apartments">
+  <!-- start container -->
+  <div class="container">
+    <div class="title">
+      <span class="title__shadow">OUR OFFERS ARE GREAT</span>
+      <h3 class="title__front">POPULAR APARTMENTS</h3>
+    </div>
+    <div class="apartments__options">
+      <button class="button button-filled">Per Day</button>
+      <button class="button button-outline">Per Month</butt>
+    </div>
+
+    <!-- start apartments__list -->
+    <div class="apartments__list">
+      <div class="apartment">
+        <div class="apartment__info">
+          <div class="apartment__more">
+            <div class="info__bathroom">
+              <i class="fa fa-bath" aria-hidden="true"></i>2 Bedroom</div>
+            <div class="info__square">
+              <i class="fa fa-square" aria-hidden="true"></i>2400 sqft</div>
+            <div class="info__bedrooms">
+              <i class="fa fa-bed" aria-hidden="true"></i>2 Bedroom</div>
+            <div class="info__location">DELTA, 48 Boulevard Jourdan</div>
+          </div>
+          <img class="apartment__photo" src="http://via.placeholder.com/370x320" alt="">
+        </div>
+        <div class="apartment__like">
+          <button class="button button-circle button-filled">
+            <i class="fa fa-heart-o" aria-hidden="true"></i>
+          </button>
+        </div>
+        <div class="apartment__main">
+          <div class="aparment__location">LONDON, BRITAIN</div>
+          <div class="apartment__name">Bedroom Unbeatable</div>
+          <div class="apartment__price">From
+            <span class="price">$30.00</span>
+          </div>
+        </div>
+      </div>
+      <div class="apartment">
+        <div class="apartment__info">
+          <div class="apartment__more">
+            <div class="info__bathroom">
+              <i class="fa fa-bath" aria-hidden="true"></i>2 Bedroom</div>
+            <div class="info__square">
+              <i class="fa fa-square" aria-hidden="true"></i>2400 sqft</div>
+            <div class="info__bedrooms">
+              <i class="fa fa-bed" aria-hidden="true"></i>2 Bedroom</div>
+            <div class="info__location">DELTA, 48 Boulevard Jourdan</div>
+          </div>
+          <img class="apartment__photo" src="http://via.placeholder.com/370x320" alt="">
+        </div>
+        <div class="apartment__like">
+          <button class="button button-circle button-filled">
+            <i class="fa fa-heart-o" aria-hidden="true"></i>
+          </button>
+        </div>
+        <div class="apartment__main">
+          <div class="aparment__location">LONDON, BRITAIN</div>
+          <div class="apartment__name">Bedroom Unbeatable</div>
+          <div class="apartment__price">From
+            <span class="price">$30.00</span>
+          </div>
+        </div>
+      </div>
+      <div class="apartment">
+        <div class="apartment__info">
+          <div class="apartment__more">
+            <div class="info__bathroom">
+              <i class="fa fa-bath" aria-hidden="true"></i>2 Bedroom</div>
+            <div class="info__square">
+              <i class="fa fa-square" aria-hidden="true"></i>2400 sqft</div>
+            <div class="info__bedrooms">
+              <i class="fa fa-bed" aria-hidden="true"></i>2 Bedroom</div>
+            <div class="info__location">DELTA, 48 Boulevard Jourdan</div>
+          </div>
+          <img class="apartment__photo" src="http://via.placeholder.com/370x320" alt="">
+        </div>
+        <div class="apartment__like">
+          <button class="button button-circle button-filled">
+            <i class="fa fa-heart-o" aria-hidden="true"></i>
+          </button>
+        </div>
+        <div class="apartment__main">
+          <div class="aparment__location">LONDON, BRITAIN</div>
+          <div class="apartment__name">Bedroom Unbeatable</div>
+          <div class="apartment__price">From
+            <span class="price">$30.00</span>
+          </div>
+        </div>
+      </div>
+      <div class="apartment">
+        <div class="apartment__info">
+          <div class="apartment__more">
+            <div class="info__bathroom">
+              <i class="fa fa-bath" aria-hidden="true"></i>2 Bedroom</div>
+            <div class="info__square">
+              <i class="fa fa-square" aria-hidden="true"></i>2400 sqft</div>
+            <div class="info__bedrooms">
+              <i class="fa fa-bed" aria-hidden="true"></i>2 Bedroom</div>
+            <div class="info__location">DELTA, 48 Boulevard Jourdan</div>
+          </div>
+          <img class="apartment__photo" src="http://via.placeholder.com/370x320" alt="">
+        </div>
+        <div class="apartment__like">
+          <button class="button button-circle button-filled">
+            <i class="fa fa-heart-o" aria-hidden="true"></i>
+          </button>
+        </div>
+        <div class="apartment__main">
+          <div class="aparment__location">LONDON, BRITAIN</div>
+          <div class="apartment__name">Bedroom Unbeatable</div>
+          <div class="apartment__price">From
+            <span class="price">$30.00</span>
+          </div>
+        </div>
+      </div>
+      <div class="apartment">
+        <div class="apartment__info">
+          <div class="apartment__more">
+            <div class="info__bathroom">
+              <i class="fa fa-bath" aria-hidden="true"></i>2 Bedroom</div>
+            <div class="info__square">
+              <i class="fa fa-square" aria-hidden="true"></i>2400 sqft</div>
+            <div class="info__bedrooms">
+              <i class="fa fa-bed" aria-hidden="true"></i>2 Bedroom</div>
+            <div class="info__location">DELTA, 48 Boulevard Jourdan</div>
+          </div>
+          <img class="apartment__photo" src="http://via.placeholder.com/370x320" alt="">
+        </div>
+        <div class="apartment__like">
+          <button class="button button-circle button-filled">
+            <i class="fa fa-heart-o" aria-hidden="true"></i>
+          </button>
+        </div>
+        <div class="apartment__main">
+          <div class="aparment__location">LONDON, BRITAIN</div>
+          <div class="apartment__name">Bedroom Unbeatable</div>
+          <div class="apartment__price">From
+            <span class="price">$30.00</span>
+          </div>
+        </div>
+      </div>
+      <div class="apartment">
+        <div class="apartment__info">
+          <div class="apartment__more">
+            <div class="info__bathroom">
+              <i class="fa fa-bath" aria-hidden="true"></i>2 Bedroom</div>
+            <div class="info__square">
+              <i class="fa fa-square" aria-hidden="true"></i>2400 sqft</div>
+            <div class="info__bedrooms">
+              <i class="fa fa-bed" aria-hidden="true"></i>2 Bedroom</div>
+            <div class="info__location">DELTA, 48 Boulevard Jourdan</div>
+          </div>
+          <img class="apartment__photo" src="http://via.placeholder.com/370x320" alt="">
+        </div>
+        <div class="apartment__like">
+          <button class="button button-circle button-filled">
+            <i class="fa fa-heart-o" aria-hidden="true"></i>
+          </button>
+        </div>
+        <div class="apartment__main">
+          <div class="aparment__location">LONDON, BRITAIN</div>
+          <div class="apartment__name">Bedroom Unbeatable</div>
+          <div class="apartment__price">From
+            <span class="price">$30.00</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- end apartments__list -->
+    <button class="button button-outline button-strong">VIEW ALL</button>
+  </div>
+  <!-- end container -->
+</div>
+<!-- end apartments -->
+
+<!-- start action -->
+<div class="action" style="background-image: url(http://via.placeholder.com/1920x360)">
+  <!-- start container -->
+  <div class="container">
+    <div class="action__text">
+      <p>Home Find</p>
+      <p>Start Searching For Awesome Properties</p>
+    </div>
+    <button class="button button-filled">GET STARTED</button>
+  </div>
+  <!-- end container -->
+</div>
+<!-- end action -->
+
+<!-- start testimonials -->
+<div class="testimonials">
+  <!-- start container -->
+  <div class="container">
+    <div class="title">
+      <span class="title__shadow">WHAT’S CLIENT SAY</span>
+      <h3 class="title__front">TESTIMONIALS</h3>
+    </div>
+
+    <div class="slider">
+      <div class="slider__prev">
+        <i class="fa fa-angle-left" aria-hidden="true"></i>
+      </div>
+      <div class="slider__next">
+        <i class="fa fa-angle-right" aria-hidden="true"></i>
+      </div>
+      <div class="slider__slides">
+        <div class="slide">
+          <div class="slide__content">
+            <img class="t__image" src="http://via.placeholder.com/120x120" alt="">
+            <div class="t__name">ERIC PAKER</div>
+            <div class="t__position">Designer</div>
+            <p class="t__comment">Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus quam nemo, molestiae explicabo, praesentium eligendi
+              vel tenetur libero tempore voluptatem eum repellendus quas autem deleniti!</p>
+          </div>
+        </div>
+        <div class="slide">
+          <div class="slide__content">
+            <img class="t__image" src="http://via.placeholder.com/120x120" alt="">
+            <div class="t__name">ERIC PAKER</div>
+            <div class="t__position">Designer</div>
+            <p class="t__comment">Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus quam nemo, molestiae explicabo, praesentium eligendi
+              vel tenetur libero tempore voluptatem eum repellendus quas autem deleniti!</p>
+          </div>
+        </div>
+        <div class="slide">
+          <div class="slide__content">
+            <img class="t__image" src="http://via.placeholder.com/120x120" alt="">
+            <div class="t__name">ERIC PAKER</div>
+            <div class="t__position">Designer</div>
+            <p class="t__comment">Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus quam nemo, molestiae explicabo, praesentium eligendi
+              vel tenetur libero tempore voluptatem eum repellendus quas autem deleniti!</p>
+          </div>
+        </div>
+        <div class="slide">
+          <div class="slide__content">
+            <img class="t__image" src="http://via.placeholder.com/120x120" alt="">
+            <div class="t__name">ERIC PAKER</div>
+            <div class="t__position">Designer</div>
+            <p class="t__comment">Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus quam nemo, molestiae explicabo, praesentium eligendi
+              vel tenetur libero tempore voluptatem eum repellendus quas autem deleniti!</p>
+          </div>
+        </div>
+        <div class="slide">
+          <div class="slide__content">
+            <img class="t__image" src="http://via.placeholder.com/120x120" alt="">
+            <div class="t__name">ERIC PAKER</div>
+            <div class="t__position">Designer</div>
+            <p class="t__comment">Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus quam nemo, molestiae explicabo, praesentium eligendi
+              vel tenetur libero tempore voluptatem eum repellendus quas autem deleniti!</p>
+          </div>
+        </div>
+        <div class="slide">
+          <div class="slide__content">
+            <img class="t__image" src="http://via.placeholder.com/120x120" alt="">
+            <div class="t__name">ERIC PAKER</div>
+            <div class="t__position">Designer</div>
+            <p class="t__comment">Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus quam nemo, molestiae explicabo, praesentium eligendi
+              vel tenetur libero tempore voluptatem eum repellendus quas autem deleniti!</p>
+          </div>
+        </div>
+        <div class="slide">
+          <div class="slide__content">
+            <img class="t__image" src="http://via.placeholder.com/120x120" alt="">
+            <div class="t__name">ERIC PAKER</div>
+            <div class="t__position">Designer</div>
+            <p class="t__comment">Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus quam nemo, molestiae explicabo, praesentium eligendi
+              vel tenetur libero tempore voluptatem eum repellendus quas autem deleniti!</p>
+          </div>
+        </div>
+        <div class="slide">
+          <div class="slide__content">
+            <img class="t__image" src="http://via.placeholder.com/120x120" alt="">
+            <div class="t__name">ERIC PAKER</div>
+            <div class="t__position">Designer</div>
+            <p class="t__comment">Lorem ipsum dolor sit amet consectetur adipisicing elit. Natus quam nemo, molestiae explicabo, praesentium eligendi
+              vel tenetur libero tempore voluptatem eum repellendus quas autem deleniti!</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- end container -->
+</div>
+<!-- end testimonials -->
+
+<!-- start blogs -->
+<div class="blogs">
+  <!-- start container -->
+  <div class="container">
+    <div class="title">
+      <span class="title__shadow">LASTEST NEWS FROM US</span>
+      <h3 class="title__front">OUR BLOG</h3>
+    </div>
+
+    <!-- start blog__list -->
+    <div class="blog__list">
+      <div class="blog">
+        <img class="blog__photo" src="http://via.placeholder.com/320x250" alt="">
+        <div class="blog__main">
+          <div class="blog__date">Jan 15, 2018</div>
+          <div class="blog__author">By
+            <span class="author">Alice</span>
+          </div>
+          <div class="blog__title">Places to enjoy the morning coffee only in Europe</div>
+          <div class="blog__body">Li Europan lingues es membres del sam familie. Lor separat exis</div>
+          <div class="blog__read">Read More
+            <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+          </div>
+        </div>
+      </div>
+      <div class="blog">
+        <img class="blog__photo" src="http://via.placeholder.com/320x250" alt="">
+        <div class="blog__main">
+          <div class="blog__date">Jan 15, 2018</div>
+          <div class="blog__author">By
+            <span class="author">Alice</span>
+          </div>
+          <div class="blog__title">Places to enjoy the morning coffee only in Europe</div>
+          <div class="blog__body">Li Europan lingues es membres del sam familie. Lor separat exis</div>
+          <div class="blog__read">Read More
+            <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+          </div>
+        </div>
+      </div>
+      <div class="blog">
+        <img class="blog__photo" src="http://via.placeholder.com/320x250" alt="">
+        <div class="blog__main">
+          <div class="blog__date">Jan 15, 2018</div>
+          <div class="blog__author">By
+            <span class="author">Alice</span>
+          </div>
+          <div class="blog__title">Places to enjoy the morning coffee only in Europe</div>
+          <div class="blog__body">Li Europan lingues es membres del sam familie. Lor separat exis</div>
+          <div class="blog__read">Read More
+            <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+          </div>
+        </div>
+      </div>
+      <div class="blog">
+        <img class="blog__photo" src="http://via.placeholder.com/320x250" alt="">
+        <div class="blog__main">
+          <div class="blog__date">Jan 15, 2018</div>
+          <div class="blog__author">By
+            <span class="author">Alice</span>
+          </div>
+          <div class="blog__title">Places to enjoy the morning coffee only in Europe</div>
+          <div class="blog__body">Li Europan lingues es membres del sam familie. Lor separat exis</div>
+          <div class="blog__read">Read More
+            <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+          </div>
+        </div>
+      </div>
+      <div class="blog">
+        <img class="blog__photo" src="http://via.placeholder.com/320x250" alt="">
+        <div class="blog__main">
+          <div class="blog__date">Jan 15, 2018</div>
+          <div class="blog__author">By
+            <span class="author">Alice</span>
+          </div>
+          <div class="blog__title">Places to enjoy the morning coffee only in Europe</div>
+          <div class="blog__body">Li Europan lingues es membres del sam familie. Lor separat exis</div>
+          <div class="blog__read">Read More
+            <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- end blog__list -->
+  </div>
+  <!-- end container -->
+</div>
+<!-- end blogs -->
+
+<!-- start partners -->
+<div class="partners">
+  <!-- start container -->
+  <div class="container">
+    <div class="title">
+      <span class="title__shadow">FIND MORE ABOUT US</span>
+      <h3 class="title__front">OUR PARTNERS</h3>
+    </div>
+
+    <div class="partners__list">
+      <div class="partner">
+        <img class="partner__logo" src="http://via.placeholder.com/285x50" alt="">
+      </div>
+      <div class="partner">
+        <img class="partner__logo" src="http://via.placeholder.com/285x50" alt="">
+      </div>
+      <div class="partner">
+        <img class="partner__logo" src="http://via.placeholder.com/285x50" alt="">
+      </div>
+      <div class="partner">
+        <img class="partner__logo" src="http://via.placeholder.com/285x50" alt="">
+      </div>
+    </div>
+  </div>
+  <!-- end container -->
+</div>
+<!-- end partners -->
+
+<!-- start footer -->
+<div class="footer">
+  <!-- start container -->
+  <div class="container">
+    <div class="footer__blocks">
+      <!-- start block -->
+      <div class="block">
+        <div class="block__title">Contact Us</div>
+        <div class="block__main">
+          <div class="main__section">
+            <div class="section__icon">
+              <i class="fa fa-envelope" aria-hidden="true"></i>
+            </div>
+            <div class="section__emails">
+              <a href="mailto:hello@homeeurope.com">hello@homeeurope.com</a>
+              <a href="mailto:hello@euroestate.com">hello@euroestate.com</a>
+            </div>
+          </div>
+          <div class="main__section">
+            <div class="section__icon">
+              <i class="fa fa-phone" aria-hidden="true"></i>
+            </div>
+            <div class="section__phones">
+              <a href="mailto:hello@homeeurope.com">hello@homeeurope.com</a>
+              <a href="mailto:hello@euroestate.com">hello@euroestate.com</a>
+            </div>
+          </div>
+          <div class="main__section">
+            <div class="section__icon">
+              <i class="fa fa-map-marker" aria-hidden="true"></i>
+            </div>
+            <div class="section__phones">
+              <a href="tel:02012345678">+020 12345678</a>
+              <a href="tel:02048454875">+020 48454875</a>
+            </div>
+          </div>
+          <div class="main__section">
+            <div class="section__icon"></div>
+            <div class="section__location">
+              132-133 St, Montfichet Rd, London E20
+              <br>1EN, United Kingdom
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- end block -->
+      <!-- start block -->
+      <div class="block">
+        <div class="block__title">Quick link</div>
+        <div class="block__main">
+          <div class="main__section">
+            <a href="#">Home</a>
+          </div>
+          <div class="main__section">
+            <a href="#">About Us</a>
+          </div>
+          <div class="main__section">
+            <a href="#">Our Apartments</a>
+          </div>
+          <div class="main__section">
+            <a href="#">Reviews</a>
+          </div>
+          <div class="main__section">
+            <a href="#">Our Blog</a>
+          </div>
+        </div>
+      </div>
+      <!-- end block -->
+      <!-- start block -->
+      <div class="block">
+        <div class="block__title">infomation</div>
+        <div class="block__main">
+          <div class="main__section">
+            <a href="#">My Account</a>
+          </div>
+          <div class="main__section">
+            <a href="#">Order History</a>
+          </div>
+          <div class="main__section">
+            <a href="#">Wish List</a>
+          </div>
+          <div class="main__section">
+            <a href="#">Privacy Policy</a>
+          </div>
+          <div class="main__section">
+            <a href="#">Site map</a>
+          </div>
+        </div>
+      </div>
+      <!-- end block -->
+      <!-- start block -->
+      <div class="block">
+        <div class="block__title">Our policy</div>
+        <div class="block__main">
+          <div class="main__section">
+            <a href="#">Help &amp; Contact</a>
+          </div>
+          <div class="main__section">
+            <a href="#">Return Policy</a>
+          </div>
+          <div class="main__section">
+            <a href="#">Careers</a>
+          </div>
+          <div class="main__section">
+            <a href="#">Affiliates</a>
+          </div>
+          <div class="main__section">
+            <a href="#">Legal Notice</a>
+          </div>
+        </div>
+      </div>
+      <!-- end block -->
+      <!-- start block -->
+      <div class="block">
+        <div class="block__title">newsletter</div>
+        <div class="block__main">
+          <div class="main__section">
+            To be updated on our news &amp; promotions, join our mailing list.
+          </div>
+          <div class="main__section">
+            <div class="joinform">
+              <input class="joinform__email" type="text">
+              <button class="button joinform__button">Join</button>
+            </div>
+          </div>
+          <div class="main__section">
+            <div class="footer_socials">
+              <i class="fa fa-facebook" aria-hidden="true"></i>
+              <i class="fa fa-twitter" aria-hidden="true"></i>
+              <i class="fa fa-google" aria-hidden="true"></i>
+              <i class="fa fa-linkedin" aria-hidden="true"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- end block -->
+    </div>
+
+    <div class="footer__copyright">
+      Copyright @ 2018
+      <span class="site">Home Europe</span>, All right reserved.
+    </div>
+  </div>
+  <!-- end container -->
+</div>
+<!-- end footer -->
+
+{% endblock %}

@@ -1,8 +1,9 @@
-const gulp = require('gulp');
+const gulp = require("gulp");
 
-gulp.task('watch', [
-    'sass:watch',
-    'copy:watch',
-    'webpack:watch',
-    'pages:watch'
+gulp.task("watch", [
+  "svg:sprite:watch",
+  "nunjucks:watch",
+  "sass:watch",
+  "copy:watch",
+  "webpack:watch"
 ]);

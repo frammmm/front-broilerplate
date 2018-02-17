@@ -1,20 +1,10 @@
-const gulp = require('gulp'),
-    runSequence = require('run-sequence');
+const gulp = require("gulp");
+const runSequence = require("run-sequence");
 
-gulp.task('build', (cb) => {
-    runSequence(
-        'clean',
-        'pages',
-        ['sass', 'copy', 'webpack'],
-        cb
-    );
+gulp.task("build", cb => {
+  runSequence("clean", ["svg:sprite", "nunjucks"], ["sass", "copy", "webpack"], cb);
 });
 
-gulp.task('build:dev', (cb) => {
-    runSequence(
-        'clean',
-        'pages',
-        ['sass:dev', 'copy'],
-        cb
-    );
+gulp.task("build:dev", cb => {
+  runSequence("clean", ["svg:sprite", "nunjucks"], ["sass:dev", "copy"], cb);
 });
