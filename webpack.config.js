@@ -23,6 +23,10 @@ function createConfig() {
                 analyzerMode: 'static',
                 analyzerPort: 4000,
                 openAnalyzer: false
+            }),
+            new webpack.ProvidePlugin({
+                $: 'jquery',
+                jQuery: 'jquery'
             })
         ],
         module: {
