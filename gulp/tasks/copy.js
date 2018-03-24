@@ -19,6 +19,15 @@ gulp.task("copy:watch", () => {
 
     bs.reload();
   });
+  bs.watch(config.src.fonts + "/**/*.*", (event, file) => {
+    if (event === "change" || event === "add") {
+      copyFonts();
+    } else if (event === "unlink") {
+      removeFont(path.basename(file));
+    }
+
+    bs.reload();
+  });
 });
 
 function removeImage(file) {
@@ -31,7 +40,7 @@ function copyImages() {
     .pipe(gulp.dest(config.dist.img));
 }
 
-function removeFonts(file) {
+function removeFont(file) {
   del(path.resolve(config.dist.fonts, file));
 }
 
