@@ -1,0 +1,29 @@
+r(width) 
+  @media only screen and (max-width: width - 1)
+    {block}
+
+rm(width)
+  @media only screen and (min-width: width)
+    {block}
+
+font(fontfamily, path, fontweight = null)
+  @font-face 
+    font-family fontfamily
+    font-weight fontweight
+    src local(fontfamily), url(path + ".woff2") format('woff2'), url(path + ".woff") format('woff')
+
+generate-grid(columns, breakpoints = null)
+  grid(columns)
+
+  if breapoints
+    for key, value in breakpoints
+      +rm(value)
+        grid(columns, key)
+
+grid(columns, prefix = null)
+  prefix = prefix && "-" + prefix
+
+  for i in range(1, columns, 1)
+    .col{prefix}-{i}
+      flex 0 0 percentage(i / columns)
+      min-width percentage(i / columns)

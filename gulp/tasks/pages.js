@@ -1,6 +1,6 @@
-const gulp = require('gulp'),
-    config = require('../config'),
-    bs = require('./dev-server');
+const gulp = require('gulp');
+const config = require('../config');
+const bs = require('./dev-server');
 
 gulp.task('pages', () =>
     gulp

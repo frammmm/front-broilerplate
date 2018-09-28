@@ -1,6 +1,6 @@
 const gulp = require("gulp");
-const runSequence = require("run-sequence");
 const fs = require('fs');
+const runSequence = require("run-sequence");
 
 gulp.task("init", () => {
   const p = require('../../package.json');

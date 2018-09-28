@@ -1,6 +1,7 @@
 const config = require("../config");
+const log = require("fancy-log");
 const gulp = require("gulp");
-const sass = require("gulp-sass");
+const stylus = require("gulp-stylus");
 const sourcemaps = require("gulp-sourcemaps");
 const postcss = require("gulp-postcss");
 const purify = require("gulp-purifycss");
@@ -33,35 +34,38 @@ const settings = [
   require("postcss-csso")
 ];
 
-gulp.task("sass", () =>
+gulp.task("generate-css", () =>
   gulp
-    .src(config.src.styles + "/**/index.sass")
-    .pipe(sass().on("error", sass.logError))
-    .pipe(purify([config.dist.root + "/*.html"]))
-    .pipe(postcss(settings))
-    .pipe(gulp.dest(config.dist.css))
+  .src(config.src.styles + "/**/index.styl")
+  .pipe(stylus({
+    compress: false
+  }))
+  .pipe(purify([config.dist.root + "/*.html"]))
+  .pipe(postcss(settings))
+  .pipe(gulp.dest(config.dist.css))
 );
 
-gulp.task("sass:dev", () => {
+gulp.task("generate-css:dev", () => {
   gulp
-    .src(config.src.styles + "/**/index.sass")
+    .src(config.src.styles + "/**/index.styl")
     .pipe(sourcemaps.init())
-    .pipe(
-      sass({
-        outputStyle: "expanded"
-      }).on("error", sass.logError)
-    )
+    .pipe(stylus({
+      compress: false
+    }).on("error", (e) => log.error(e)))
     .pipe(sourcemaps.write("./"))
     .pipe(gulp.dest(config.dist.css))
-    .pipe(bs.reload({ stream: true }));
+    .pipe(bs.reload({
+      stream: true
+    }));
 });
 
-gulp.task("sass:watch", () => {
+gulp.task("css:watch", () => {
   bs.watch(
-    config.src.styles + "/**/*.{sass, scss}",
-    { ignoreInitial: true },
+    config.src.styles + "/**/*.{styl, styl}", {
+      ignoreInitial: true
+    },
     () => {
-      gulp.start("sass:dev");
+      gulp.start("generate-css:dev");
     }
   );
 });

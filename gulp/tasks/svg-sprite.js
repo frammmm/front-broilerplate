@@ -33,9 +33,9 @@ gulp.task("svg:sprite", () => {
           symbol: {
             sprite: "../sprite.svg",
             render: {
-              scss: {
-                dest: "../../../" + config.src.styles + "/utils/_svg-sprite",
-                template: config.src.styles + "/utils/_svg-template.scss"
+              styl: {
+                dest: "../../../" + config.src.styles + "/icons",
+                template: config.src.styles + "/utils/_svg-template.styl"
               }
             }
           }
