@@ -35,7 +35,7 @@
     "webpack": "^4.1.1",
     "webpack-bundle-analyzer": "^2.9.1"
   },
-  "init": true,
+  "init": false,
   "dependencies": {
     "jquery": "^3.3.1"
   }
