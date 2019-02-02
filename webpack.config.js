@@ -1,6 +1,6 @@
 const webpack = require('webpack'),
     path = require('path'),
-    config = require('./gulp/config'),
+    config = require('./scripts/config'),
     BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 const env = process.env.NODE_ENV;

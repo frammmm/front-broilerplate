@@ -1,6 +1,7 @@
 {
   "name": "frontend-boilerplate",
   "scripts": {
+	  "install": "node ./scripts/postinstall.js",
     "start": "SET NODE_ENV=development&&gulp",
     "build": "SET NODE_ENV=production&&gulp build"
   },
@@ -34,7 +35,6 @@
     "webpack": "^4.1.1",
     "webpack-bundle-analyzer": "^2.9.1"
   },
-  "init": false,
   "dependencies": {
     "jquery": "^3.3.1"
   }
