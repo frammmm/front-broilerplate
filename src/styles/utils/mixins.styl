@@ -1,13 +1,13 @@
-r(width) 
+below(width)
   @media only screen and (max-width: width - 1)
     {block}
 
-rm(width)
+above(width)
   @media only screen and (min-width: width)
     {block}
 
 font(fontfamily, path, fontweight = null)
-  @font-face 
+  @font-face
     font-family fontfamily
     font-weight fontweight
     src local(fontfamily), url(path + ".woff2") format('woff2'), url(path + ".woff") format('woff')

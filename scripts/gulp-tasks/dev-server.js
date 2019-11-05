@@ -1,8 +1,8 @@
-const gulp = require("gulp");
-const bs = require("browser-sync").create();
-const config = require("../config");
+const gulp = require('gulp');
+const bs = require('browser-sync').create();
+const config = require('../config');
 
-gulp.task("dev-server", () => {
+gulp.task('dev-server', () => {
   bs.init({
     server: {
       baseDir: config.dist.root
