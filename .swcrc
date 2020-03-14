@@ -1,7 +1,7 @@
 {
   "jsc": {
     "parser": {
-      "syntax": "ecmascript"
+      "syntax": "typescript"
     }
   }
 }

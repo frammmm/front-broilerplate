@@ -32,7 +32,7 @@ module.exports = {
   },
 
   entry: {
-    bundle: path.resolve(config.src.js, 'app.js')
+    bundle: path.resolve(config.src.js, 'index.ts')
   },
 
   output: {
@@ -68,7 +68,7 @@ module.exports = {
 
   module: {
     rules: [{
-      test: /\.js$/,
+      test: /\.[tj]s$/,
       use: [
         'cache-loader',
         'swc-loader',
