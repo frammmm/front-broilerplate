@@ -5,9 +5,9 @@ const assetsPath = 'assets';
 const config = {
   src: {
     root: srcPath,
-    templates: srcPath + '/templates',
+    pages: srcPath + '/pages',
     styles: srcPath + '/styles',
-    js: srcPath,
+    js: srcPath + '/js',
     img: srcPath + '/' + assetsPath + '/img',
     icons: srcPath + '/' + assetsPath + '/icons',
     fonts: srcPath + '/' + assetsPath + '/fonts'

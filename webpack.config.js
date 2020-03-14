@@ -1,44 +1,76 @@
-const webpack = require('webpack');
+const fs = require('fs');
 const path = require('path');
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const webpack = require('webpack');
+
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
+
 const config = require('./scripts/config');
 
-const env = process.env.NODE_ENV;
+const mode = process.env.NODE_ENV;
+const isDevelopment = mode === 'development';
 
-function createConfig() {
-  let webpackConfig = {
-    mode: env || 'development',
-    context: path.join(__dirname, config.src.js),
-    entry: {
-      app: './app.js'
-    },
-    output: {
-      path: path.join(__dirname, config.dist.js),
-      filename: '[name].js',
-      publicPath: 'js/',
-    },
-    plugins: [
-      new webpack.NoEmitOnErrorsPlugin(),
-      new BundleAnalyzerPlugin({
-        analyzerMode: 'static',
-        analyzerPort: 4000,
-        openAnalyzer: false
-      })
-    ],
-    module: {
-      rules: [{
-        test: /\.js$/,
-        loader: 'eslint-loader',
-        enforce: 'pre',
-      }, {
-        test: /\.js$/,
-        loader: 'babel-loader',
-      }]
+const pages = fs.readdirSync(config.src.pages)
+  .map(file => ({
+    filename: file,
+    template: `${config.src.pages}/${file}`
+  }));
+
+module.exports = {
+  devServer: {
+    quiet: true
+  },
+
+  mode,
+
+  entry: {
+    bundle: path.resolve(config.src.js, 'app.js')
+  },
+
+  output: {
+    path: path.join(__dirname, config.distPath),
+    filename: isDevelopment ? '[name].js' : '[name].[contenthash].js'
+  },
+
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, 'src')
     }
-  };
+  },
 
-  return webpackConfig;
-}
+  plugins: [
+    new FriendlyErrorsWebpackPlugin(),
+    new CleanWebpackPlugin(),
+    new MiniCssExtractPlugin({
+      filename: isDevelopment ? '[name].css' : '[name].[contenthash].css'
+    }),
 
-module.exports = createConfig();
-module.exports.createConfig = createConfig;
+    ...pages.map(page => new HtmlWebpackPlugin(page)),
+
+    new ScriptExtHtmlWebpackPlugin({
+      defaultAttribute: 'async'
+    })
+  ],
+
+  module: {
+    rules: [{
+      test: /\.s[ac]ss$/i,
+      use: [
+        'cache-loader',
+        MiniCssExtractPlugin.loader,
+        'css-loader',
+        'sass-loader'
+      ]
+    }, {
+      test: /\.js$/,
+      use: [
+        'cache-loader',
+        'babel-loader',
+        'eslint-loader'
+      ]
+    }]
+  }
+};
