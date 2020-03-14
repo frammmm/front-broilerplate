@@ -2,15 +2,13 @@
   "name": "frontend-boilerplate",
   "scripts": {
     "install": "node ./scripts/postinstall.js",
+    "serve": "serve ./dist",
     "start": "cross-env NODE_ENV=development webpack-dev-server",
     "build": "cross-env NODE_ENV=production webpack --pretty"
   },
   "author": "frammmm",
   "devDependencies": {
-    "@babel/core": "^7.8.7",
-    "@babel/preset-env": "^7.8.7",
-    "babel-eslint": "^10.1.0",
-    "babel-loader": "^8.0.6",
+    "@swc/core": "^1.1.35",
     "cache-loader": "^4.1.0",
     "clean-webpack-plugin": "^3.0.0",
     "cross-env": "^7.0.2",
@@ -23,6 +21,7 @@
     "node-sass": "^4.13.1",
     "sass-loader": "^8.0.2",
     "script-ext-html-webpack-plugin": "^2.1.4",
+    "swc-loader": "^0.1.8",
     "webpack": "^4.42.0",
     "webpack-bundle-analyzer": "^3.6.0",
     "webpack-cli": "^3.3.11",

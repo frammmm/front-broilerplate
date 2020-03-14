@@ -1,6 +1,5 @@
 const fs = require('fs');
 const path = require('path');
-const webpack = require('webpack');
 
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin');
@@ -26,6 +25,12 @@ module.exports = {
 
   mode,
 
+  optimization: {
+    runtimeChunk: {
+      name: 'runtime'
+    }
+  },
+
   entry: {
     bundle: path.resolve(config.src.js, 'app.js')
   },
@@ -42,13 +47,19 @@ module.exports = {
   },
 
   plugins: [
-    new FriendlyErrorsWebpackPlugin(),
-    new CleanWebpackPlugin(),
-    new MiniCssExtractPlugin({
-      filename: isDevelopment ? '[name].css' : '[name].[contenthash].css'
+    new FriendlyErrorsWebpackPlugin({
+      compilationSuccessInfo: {
+        messages: ['You application is running here http://localhost:8080'],
+      }
     }),
+    new CleanWebpackPlugin(),
 
     ...pages.map(page => new HtmlWebpackPlugin(page)),
+
+    new MiniCssExtractPlugin({
+      filename: isDevelopment ? '[name].css' : '[contenthash].css',
+      chunkFilename: isDevelopment ? '[name].css' : '[contenthash].chunk.css'
+    }),
 
     new ScriptExtHtmlWebpackPlugin({
       defaultAttribute: 'async'
@@ -57,19 +68,19 @@ module.exports = {
 
   module: {
     rules: [{
-      test: /\.s[ac]ss$/i,
-      use: [
-        'cache-loader',
-        MiniCssExtractPlugin.loader,
-        'css-loader',
-        'sass-loader'
-      ]
-    }, {
       test: /\.js$/,
       use: [
         'cache-loader',
-        'babel-loader',
+        'swc-loader',
         'eslint-loader'
+      ]
+    }, {
+      test: /\.s[ac]ss$/i,
+      use: [
+        MiniCssExtractPlugin.loader,
+        'cache-loader',
+        'css-loader',
+        'sass-loader'
       ]
     }]
   }
