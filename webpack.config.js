@@ -2,6 +2,7 @@ const fs = require('fs');
 const path = require('path');
 
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
@@ -37,43 +38,30 @@ module.exports = {
 
   output: {
     path: path.join(__dirname, config.distPath),
-    filename: isDevelopment ? '[name].js' : '[name].[contenthash].js'
+    filename: isDevelopment ? '[name].js' : '[name].[contenthash:8].js'
   },
 
   resolve: {
     alias: {
       '@': path.resolve(__dirname, 'src')
-    }
+    },
+    extensions: ['.ts', '.js']
   },
-
-  plugins: [
-    new FriendlyErrorsWebpackPlugin({
-      compilationSuccessInfo: {
-        messages: ['You application is running here http://localhost:8080'],
-      }
-    }),
-    new CleanWebpackPlugin(),
-
-    ...pages.map(page => new HtmlWebpackPlugin(page)),
-
-    new MiniCssExtractPlugin({
-      filename: isDevelopment ? '[name].css' : '[contenthash].css',
-      chunkFilename: isDevelopment ? '[name].css' : '[contenthash].chunk.css'
-    }),
-
-    new ScriptExtHtmlWebpackPlugin({
-      defaultAttribute: 'async'
-    })
-  ],
 
   module: {
     rules: [{
-      test: /\.[tj]s$/,
+      test: /\.jsx?$/,
       use: [
         'cache-loader',
-        'swc-loader',
+        'babel-loader',
         'eslint-loader'
       ]
+    }, {
+      test: /\.tsx?$/,
+      loader: 'ts-loader',
+      options: {
+        transpileOnly: true
+      }
     }, {
       test: /\.s[ac]ss$/i,
       use: [
@@ -82,6 +70,38 @@ module.exports = {
         'css-loader',
         'sass-loader'
       ]
+    }, {
+      test: /\.(png|jpe?g|gif)$/i,
+      loader: 'file-loader',
+      options: {
+        name: '[name].[contenthash:8].[ext]',
+      },
+    }, {
+      test: /\.html$/i,
+      loader: 'html-loader'
     }]
-  }
+  },
+
+  plugins: [
+    new ForkTsCheckerWebpackPlugin(),
+
+    new FriendlyErrorsWebpackPlugin({
+      compilationSuccessInfo: {
+        messages: ['You application is running here http://localhost:8080'],
+      }
+    }),
+
+    new CleanWebpackPlugin(),
+
+    ...pages.map(page => new HtmlWebpackPlugin(page)),
+
+    new MiniCssExtractPlugin({
+      filename: isDevelopment ? '[name].css' : '[name].[contenthash:8].css',
+      chunkFilename: isDevelopment ? '[name].css' : '[name].[contenthash:8].css'
+    }),
+
+    new ScriptExtHtmlWebpackPlugin({
+      defaultAttribute: 'async'
+    })
+  ],
 };
