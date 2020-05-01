@@ -2,43 +2,45 @@ const fs = require('fs');
 const path = require('path');
 
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const PreloadWebpackPlugin = require('preload-webpack-plugin');
 const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
+const SpriteLoaderPlugin = require('svg-sprite-loader/plugin');
+const WorkboxPlugin = require('workbox-webpack-plugin');
 
-const config = require('./scripts/config');
+const paths = require('./scripts/config');
 
 const mode = process.env.NODE_ENV;
 const isDevelopment = mode === 'development';
+const isProduction = !isDevelopment;
 
-const pages = fs.readdirSync(config.src.pages)
+const pages = fs.readdirSync(paths.src.pages)
+  .filter(file => !file.startsWith('_'))
   .map(file => ({
-    filename: file,
-    template: `${config.src.pages}/${file}`
+    filename: file.replace('.pug', '.html'),
+    template: `${paths.src.pages}/${file}`
   }));
 
-module.exports = {
+const config = {
   devServer: {
+    port: 3000,
     quiet: true
   },
 
   mode,
 
-  optimization: {
-    runtimeChunk: {
-      name: 'runtime'
-    }
-  },
-
   entry: {
-    bundle: path.resolve(config.src.js, 'index.ts')
+    bundle: path.resolve(paths.src.root, 'index.ts')
   },
 
   output: {
-    path: path.join(__dirname, config.distPath),
-    filename: isDevelopment ? '[name].js' : '[name].[contenthash:8].js'
+    path: path.join(__dirname, paths.distPath),
+    filename: isDevelopment ? '[name].js' : '[name].[contenthash:8].js',
+    chunkFilename: isDevelopment ? '[name].js' : '[name].[contenthash:8].js'
   },
 
   resolve: {
@@ -65,33 +67,85 @@ module.exports = {
     }, {
       test: /\.s[ac]ss$/i,
       use: [
-        MiniCssExtractPlugin.loader,
-        'cache-loader',
-        'css-loader',
-        'sass-loader'
+        {
+          loader: MiniCssExtractPlugin.loader
+        },
+        {
+          loader: 'cache-loader'
+        },
+        {
+          loader: 'css-loader'
+        },
+        {
+          loader: 'resolve-url-loader'
+        },
+        {
+          loader: 'sass-loader',
+          options: {
+            sourceMap: true
+          }
+        }
       ]
     }, {
-      test: /\.(png|jpe?g|gif)$/i,
-      loader: 'file-loader',
-      options: {
-        name: '[name].[contenthash:8].[ext]',
-      },
+      test: /\.(png|jpe?g)$/i,
+      use: [
+        {
+          loader: 'file-loader',
+          options: {
+            name: '[name].[contenthash:8].[ext]',
+          }
+        }
+      ]
     }, {
-      test: /\.html$/i,
-      loader: 'html-loader'
+      test: /\.(woff(2)?|ttf|eot)(\?v=\d+\.\d+\.\d+)?$/,
+      use: [
+        {
+          loader: 'file-loader',
+          options: {
+            name: '[name].[ext]',
+            outputPath: 'fonts/'
+          }
+        }
+      ]
+    }, {
+      test: /\.pug$/i,
+      use: 'pug-loader'
+    }, {
+      test: /\.svg$/i,
+      loader: 'svg-sprite-loader',
+      options: {
+        extract: true,
+        spriteFilename: 'icons.[hash:8].svg'
+      }
     }]
   },
 
+  optimization: {},
+
   plugins: [
+    new FaviconsWebpackPlugin({
+      logo: './src/assets/img/logo.png',
+      favicons: {
+        icons: {
+          android: false,
+          appleIcon: true,
+          appleStartup: false,
+          coast: false,
+          favicons: true,
+          firefox: false,
+          windows: false,
+          yandex: false
+        }
+      }
+    }),
+
     new ForkTsCheckerWebpackPlugin(),
 
     new FriendlyErrorsWebpackPlugin({
       compilationSuccessInfo: {
-        messages: ['You application is running here http://localhost:8080'],
+        messages: ['You application is running here http://localhost:3000'],
       }
     }),
-
-    new CleanWebpackPlugin(),
 
     ...pages.map(page => new HtmlWebpackPlugin(page)),
 
@@ -100,8 +154,32 @@ module.exports = {
       chunkFilename: isDevelopment ? '[name].css' : '[name].[contenthash:8].css'
     }),
 
+    // Preload fonts
+    new PreloadWebpackPlugin({
+      include: 'allAssets',
+      fileBlacklist: [/^(?!.*woff2).*$/]
+    }),
+
     new ScriptExtHtmlWebpackPlugin({
       defaultAttribute: 'async'
+    }),
+
+    new SpriteLoaderPlugin({
+      plainSprite: true
     })
   ],
 };
+
+if (isProduction) {
+  config.plugins.push(new CleanWebpackPlugin());
+  config.plugins.push(new WorkboxPlugin.GenerateSW({
+    exclude: [/\.(?:html|ico|png|jpg|jpeg|svg)$/],
+  }));
+
+  config.optimization.splitChunks = {
+    chunks: 'all',
+    minSize: 0
+  };
+}
+
+module.exports = config;
