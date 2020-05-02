@@ -2,6 +2,7 @@ const fs = require('fs');
 const path = require('path');
 
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const CssoWebpackPlugin = require('csso-webpack-plugin').default;
 const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin');
@@ -69,17 +70,16 @@ const config = {
       use: [
         {
           loader: MiniCssExtractPlugin.loader
-        },
-        {
+        }, {
           loader: 'cache-loader'
-        },
-        {
-          loader: 'css-loader'
-        },
-        {
+        }, {
+          loader: 'css-loader',
+          options: { importLoaders: 1 }
+        }, {
+          loader: 'postcss-loader',
+        }, {
           loader: 'resolve-url-loader'
-        },
-        {
+        }, {
           loader: 'sass-loader',
           options: {
             sourceMap: true
@@ -174,6 +174,7 @@ const config = {
 
 if (isProduction) {
   config.plugins.push(new CleanWebpackPlugin());
+  config.plugins.push(new CssoWebpackPlugin());
   config.plugins.push(new WorkboxPlugin.GenerateSW({
     exclude: [/\.(?:html|ico|png|jpg|jpeg|svg)$/],
   }));
