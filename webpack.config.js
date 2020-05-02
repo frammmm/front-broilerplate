@@ -52,14 +52,14 @@ const config = {
 
   module: {
     rules: [{
-      test: /\.jsx?$/,
+      test: /\.js?$/,
       use: [
         'cache-loader',
         'babel-loader',
         'eslint-loader'
       ]
     }, {
-      test: /\.tsx?$/,
+      test: /\.ts?$/,
       loader: 'ts-loader',
       options: {
         transpileOnly: true
@@ -93,6 +93,7 @@ const config = {
           loader: 'file-loader',
           options: {
             name: '[name].[contenthash:8].[ext]',
+            outputPath: 'images'
           }
         }
       ]
@@ -103,7 +104,7 @@ const config = {
           loader: 'file-loader',
           options: {
             name: '[name].[ext]',
-            outputPath: 'fonts/'
+            outputPath: 'fonts'
           }
         }
       ]
@@ -136,7 +137,8 @@ const config = {
           windows: false,
           yandex: false
         }
-      }
+      },
+      prefix: ''
     }),
 
     new ForkTsCheckerWebpackPlugin(),
