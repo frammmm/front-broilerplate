@@ -73,8 +73,7 @@ const config = {
         }, {
           loader: 'cache-loader'
         }, {
-          loader: 'css-loader',
-          options: { importLoaders: 1 }
+          loader: 'css-loader'
         }, {
           loader: 'postcss-loader',
         }, {
@@ -103,7 +102,7 @@ const config = {
         {
           loader: 'file-loader',
           options: {
-            name: '[name].[ext]',
+            name: '[name].[contenthash:8].[ext]',
             outputPath: 'fonts'
           }
         }
