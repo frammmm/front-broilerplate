@@ -52,7 +52,5 @@
     "not ie < 11",
     "not op_mini all"
   ],
-  "dependencies": {
-    "ramda": "^0.27.0"
-  }
+  "dependencies": {}
 }

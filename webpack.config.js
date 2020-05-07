@@ -32,6 +32,8 @@ const config = {
     quiet: true
   },
 
+  devtool: isProduction ? false : 'cheap-module-source-map',
+
   mode,
 
   entry: {
@@ -140,7 +142,9 @@ const config = {
       prefix: ''
     }),
 
-    new ForkTsCheckerWebpackPlugin(),
+    new ForkTsCheckerWebpackPlugin({
+      async: !isProduction
+    }),
 
     new FriendlyErrorsWebpackPlugin({
       compilationSuccessInfo: {
