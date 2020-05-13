@@ -1,4 +1,5 @@
 const fs = require('fs');
+const getPort = require('get-port');
 const path = require('path');
 
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
@@ -19,173 +20,177 @@ const mode = process.env.NODE_ENV;
 const isDevelopment = mode === 'development';
 const isProduction = !isDevelopment;
 
-const pages = fs.readdirSync(paths.src.pages)
-  .filter(file => !file.startsWith('_'))
-  .map(file => ({
-    filename: file.replace('.pug', '.html'),
-    template: `${paths.src.pages}/${file}`
-  }));
+module.exports = async () => {
+  const pages = fs.readdirSync(paths.src.pages)
+    .filter(file => !file.startsWith('_'))
+    .map(file => ({
+      filename: file.replace('.pug', '.html'),
+      template: `${paths.src.pages}/${file}`
+    }));
 
-const config = {
-  devServer: {
-    port: 3000,
-    quiet: true
-  },
+  const port = await getPort({ port: getPort.makeRange(3000, 3100) });
 
-  devtool: isProduction ? false : 'cheap-module-source-map',
-
-  mode,
-
-  entry: {
-    bundle: path.resolve(paths.src.root, 'index.ts')
-  },
-
-  output: {
-    path: path.join(__dirname, paths.distPath),
-    filename: isDevelopment ? '[name].js' : '[name].[contenthash:8].js',
-    chunkFilename: isDevelopment ? '[name].js' : '[name].[contenthash:8].js'
-  },
-
-  resolve: {
-    alias: {
-      '@': path.resolve(__dirname, 'src')
+  const config = {
+    devServer: {
+      port,
+      quiet: true
     },
-    extensions: ['.ts', '.js']
-  },
 
-  module: {
-    rules: [{
-      test: /\.js?$/,
-      use: [
-        'cache-loader',
-        'babel-loader',
-        'eslint-loader'
-      ]
-    }, {
-      test: /\.ts?$/,
-      loader: 'ts-loader',
-      options: {
-        transpileOnly: true
-      }
-    }, {
-      test: /\.s[ac]ss$/i,
-      use: [
-        {
-          loader: MiniCssExtractPlugin.loader
-        }, {
-          loader: 'cache-loader'
-        }, {
-          loader: 'css-loader'
-        }, {
-          loader: 'postcss-loader',
-        }, {
-          loader: 'resolve-url-loader'
-        }, {
-          loader: 'sass-loader',
-          options: {
-            sourceMap: true
-          }
-        }
-      ]
-    }, {
-      test: /\.(png|jpe?g)$/i,
-      use: [
-        {
-          loader: 'file-loader',
-          options: {
-            name: '[name].[contenthash:8].[ext]',
-            outputPath: 'images'
-          }
-        }
-      ]
-    }, {
-      test: /\.(woff(2)?|ttf|eot)(\?v=\d+\.\d+\.\d+)?$/,
-      use: [
-        {
-          loader: 'file-loader',
-          options: {
-            name: '[name].[contenthash:8].[ext]',
-            outputPath: 'fonts'
-          }
-        }
-      ]
-    }, {
-      test: /\.pug$/i,
-      use: 'pug-loader'
-    }, {
-      test: /\.svg$/i,
-      loader: 'svg-sprite-loader',
-      options: {
-        extract: true,
-        spriteFilename: 'icons.[hash:8].svg'
-      }
-    }]
-  },
+    devtool: isProduction ? false : 'cheap-module-source-map',
 
-  optimization: {},
+    mode,
 
-  plugins: [
-    new FaviconsWebpackPlugin({
-      logo: './src/assets/img/logo.png',
-      favicons: {
-        icons: {
-          android: false,
-          appleIcon: true,
-          appleStartup: false,
-          coast: false,
-          favicons: true,
-          firefox: false,
-          windows: false,
-          yandex: false
-        }
+    entry: {
+      bundle: path.resolve(paths.src.root, 'index.ts')
+    },
+
+    output: {
+      path: path.join(__dirname, paths.distPath),
+      filename: isDevelopment ? '[name].js' : '[name].[contenthash:8].js',
+      chunkFilename: isDevelopment ? '[name].js' : '[name].[contenthash:8].js'
+    },
+
+    resolve: {
+      alias: {
+        '@': path.resolve(__dirname, 'src')
       },
-      prefix: ''
-    }),
+      extensions: ['.ts', '.js']
+    },
 
-    new ForkTsCheckerWebpackPlugin({
-      async: !isProduction
-    }),
+    module: {
+      rules: [{
+        test: /\.js?$/,
+        use: [
+          'cache-loader',
+          'babel-loader',
+          'eslint-loader'
+        ]
+      }, {
+        test: /\.ts?$/,
+        loader: 'ts-loader',
+        options: {
+          transpileOnly: true
+        }
+      }, {
+        test: /\.s[ac]ss$/i,
+        use: [
+          {
+            loader: MiniCssExtractPlugin.loader
+          }, {
+            loader: 'cache-loader'
+          }, {
+            loader: 'css-loader'
+          }, {
+            loader: 'postcss-loader',
+          }, {
+            loader: 'resolve-url-loader'
+          }, {
+            loader: 'sass-loader',
+            options: {
+              sourceMap: true
+            }
+          }
+        ]
+      }, {
+        test: /\.(png|jpe?g)$/i,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: '[name].[contenthash:8].[ext]',
+              outputPath: 'images'
+            }
+          }
+        ]
+      }, {
+        test: /\.(woff(2)?|ttf|eot)(\?v=\d+\.\d+\.\d+)?$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: '[name].[contenthash:8].[ext]',
+              outputPath: 'fonts'
+            }
+          }
+        ]
+      }, {
+        test: /\.pug$/i,
+        use: 'pug-loader'
+      }, {
+        test: /\.svg$/i,
+        loader: 'svg-sprite-loader',
+        options: {
+          extract: true,
+          spriteFilename: 'icons.[hash:8].svg'
+        }
+      }]
+    },
 
-    new FriendlyErrorsWebpackPlugin({
-      compilationSuccessInfo: {
-        messages: ['You application is running here http://localhost:3000'],
-      }
-    }),
+    optimization: {},
 
-    ...pages.map(page => new HtmlWebpackPlugin(page)),
+    plugins: [
+      new FaviconsWebpackPlugin({
+        logo: './src/assets/img/logo.png',
+        favicons: {
+          icons: {
+            android: false,
+            appleIcon: true,
+            appleStartup: false,
+            coast: false,
+            favicons: true,
+            firefox: false,
+            windows: false,
+            yandex: false
+          }
+        },
+        prefix: ''
+      }),
 
-    new MiniCssExtractPlugin({
-      filename: isDevelopment ? '[name].css' : '[name].[contenthash:8].css',
-      chunkFilename: isDevelopment ? '[name].css' : '[name].[contenthash:8].css'
-    }),
+      new ForkTsCheckerWebpackPlugin({
+        async: !isProduction
+      }),
 
-    // Preload fonts
-    new PreloadWebpackPlugin({
-      include: 'allAssets',
-      fileBlacklist: [/^(?!.*woff2).*$/]
-    }),
+      new FriendlyErrorsWebpackPlugin({
+        compilationSuccessInfo: {
+          messages: [`You application is running here http://localhost:${port}`],
+        }
+      }),
 
-    new ScriptExtHtmlWebpackPlugin({
-      defaultAttribute: 'async'
-    }),
+      ...pages.map(page => new HtmlWebpackPlugin(page)),
 
-    new SpriteLoaderPlugin({
-      plainSprite: true
-    })
-  ],
-};
+      new MiniCssExtractPlugin({
+        filename: isDevelopment ? '[name].css' : '[name].[contenthash:8].css',
+        chunkFilename: isDevelopment ? '[name].css' : '[name].[contenthash:8].css'
+      }),
 
-if (isProduction) {
-  config.plugins.push(new CleanWebpackPlugin());
-  config.plugins.push(new CssoWebpackPlugin());
-  config.plugins.push(new WorkboxPlugin.GenerateSW({
-    exclude: [/\.(?:html|ico|png|jpg|jpeg|svg)$/],
-  }));
+      // Preload fonts
+      new PreloadWebpackPlugin({
+        include: 'allAssets',
+        fileBlacklist: [/^(?!.*woff2).*$/]
+      }),
 
-  config.optimization.splitChunks = {
-    chunks: 'all',
-    minSize: 0
+      new ScriptExtHtmlWebpackPlugin({
+        defaultAttribute: 'async'
+      }),
+
+      new SpriteLoaderPlugin({
+        plainSprite: true
+      })
+    ],
   };
-}
 
-module.exports = config;
+  if (isProduction) {
+    config.plugins.push(new CleanWebpackPlugin());
+    config.plugins.push(new CssoWebpackPlugin());
+    config.plugins.push(new WorkboxPlugin.GenerateSW({
+      exclude: [/\.(?:html|ico|png|jpg|jpeg|svg)$/],
+    }));
+
+    config.optimization.splitChunks = {
+      chunks: 'all',
+      minSize: 0
+    };
+  }
+
+  return config;
+};

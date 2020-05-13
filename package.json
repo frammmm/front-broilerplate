@@ -7,6 +7,7 @@
     "build": "cross-env NODE_ENV=production webpack --pretty"
   },
   "author": "frammmm",
+  "dependencies": {},
   "devDependencies": {
     "@babel/core": "^7.8.7",
     "@babel/preset-env": "^7.8.7",
@@ -26,6 +27,7 @@
     "file-loader": "^6.0.0",
     "fork-ts-checker-webpack-plugin": "^4.1.0",
     "friendly-errors-webpack-plugin": "^1.7.0",
+    "get-port": "^5.1.1",
     "html-webpack-plugin": "^4.3.0",
     "mini-css-extract-plugin": "^0.9.0",
     "node-sass": "^4.13.1",
@@ -51,6 +53,5 @@
     "not dead",
     "not ie < 11",
     "not op_mini all"
-  ],
-  "dependencies": {}
+  ]
 }
